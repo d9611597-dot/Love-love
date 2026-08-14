@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!-- LOCK SCREEN WITH COUNTDOWN -->
+<div id="lock-screen" class="screen">
+  <div class="card lock-card">
+    <div class="heart-icon">🔒🎁</div>
+    <h1>A Surprise is Waiting...</h1>
+    <p>This special page will unlock on <b>August 1st</b>!</p>
+
+    <div class="timer-grid unlock-timer">
+      <div class="time-box"><span id="lock-days">00</span><label>Days</label></div>
+      <div class="time-box"><span id="lock-hours">00</span><label>Hours</label></div>
+      <div class="time-box"><span id="lock-minutes">00</span><label>Min</label></div>
+      <div class="time-box"><span id="lock-seconds">00</span><label>Sec</label></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN EXPERIENCE -->
+<div id="main-content" class="screen hidden">
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="top-bar" style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+    <button id="music-btn" onclick="toggleMusic()">🎵 Play Our Song</button>
+    <!-- DROPBOX AUDIO STREAM -->
+    <audio id="bg-music" controls loop preload="auto" src="https://www.dropbox.com/scl/fi/dql1kg6v5asg0nea8ndvh/Til-They-Take-My-Heart-Away-Clair-Marlo-Lyrics.mp3?rlkey=m5rrddek66k0po64ks9wllh27&st=aatexc7i&raw=1" style="max-width: 220px; height: 35px;"></audio>
+  </div>
+
+  <div class="content-wrapper">
+    <section class="card">
+      <h2>🌸 Happy Anniversary My Love 🌸</h2>
+      <p style="margin-top: 10px;">Mahal kita palagi ❤️</p>
+    </section>
+
+    <!-- LIVE DAYS TOGETHER COUNTER -->
+    <section class="card">
+      <h2>⏳ Together For</h2>
+      <p style="font-size: 0.85rem; color: #666; margin-top: 4px;">Since August 1, 2023 ❤️</p>
+      <div class="timer-grid" style="margin-top: 15px;">
+        <div class="time-box"><span id="together-days">0</span><label>Days</label></div>
+        <div class="time-box"><span id="together-hours">00</span><label>Hours</label></div>
+        <div class="time-box"><span id="together-minutes">00</span><label>Min</label></div>
+        <div class="time-box"><span id="together-seconds">00</span><label>Sec</label></div>
+      </div>
+    </section>
+
+    <!-- SONG LYRICS CARD -->
+    <section class="card lyrics-card">
+      <h2>🎵 Our Song</h2>
+      <p style="font-size: 0.85rem; color: #ff4757; font-weight: bold; margin-bottom: 12px;">"Till They Take My Heart Away" — Clair Marlo</p>
+      <div class="lyrics-box">
+        <p><i>"Believe in me, I'm here to stay<br>
+        I will love you<br>
+        'Til they take my heart away"</i></p>
+      </div>
+    </section>
+
+    <!-- PHOTO SLIDESHOW -->
+    <section class="card">
+      <h2>📸 Our Favorite Memories</h2>
+      <div class="slideshow-container">
+        <!-- THEME PHOTO 1 -->
+        <div class="slide fade active">
+          <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1000&auto=format&fit=crop" alt="Memory 1">
+          <p class="caption">My favorite smile in the world 🌸</p>
+        </div>
+        
+        <!-- THEME PHOTO 2 -->
+        <div class="slide fade">
+          <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=1000&auto=format&fit=crop" alt="Memory 2">
+          <p class="caption">My love of my life ❤️</p>
+        </div>
+        
+        <!-- THEME PHOTO 3 -->
+        <div class="slide fade">
+          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1000&auto=format&fit=crop" alt="Memory 3">
+          <p class="caption">My everything ✨</p>
+        </div>
+
+        <button class="prev" onclick="changeSlide(-1)">❮</button>
+        <button class="next" onclick="changeSlide(1)">❯</button>
+      </div>
+    </section>
+
+    <!-- SINGLE LOVE COUPON SECTION -->
+    <section class="card">
+      <h2>🎟️ Special Coupon</h2>
+      <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Tap "Redeem" whenever you want to claim your treat!</p>
+      
+      <div class="coupons-grid">
+        <!-- MASSAGE COUPON ONLY -->
+        <div class="coupon-card">
+          <div class="coupon-icon">💆‍♀️✨</div>
+          <h3>Back & Head Massage</h3>
+          <p>1x Unlimited relaxing back & head massage whenever you need to de-stress.</p>
+          <button class="redeem-btn" onclick="redeemCoupon(this, 'Back & Head Massage')">Redeem Coupon</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SURPRISE BUTTON -->
+    <button class="surprise-btn" onclick="triggerFinale()">✨ Click for My Final Surprise ✨</button>
+  </div>
+</div>
+
+<!-- FINALE OVERLAY WITH VIDEO -->
+<div id="finale-screen" class="screen hidden">
+  <canvas id="fireworks-canvas"></canvas>
+  <div class="finale-content">
+    <h1>I Love You Forever 💕</h1>
+    <p>Happy Anniversary, my love!</p>
+    
+    <!-- FINAL SURPRISE VIDEO PLAYER WITH AUTO-PAUSE TRIGGER -->
+    <video controls preload="metadata" onplay="stopAudioOnVideoPlay()" style="width: 100%; max-height: 240px; border-radius: 12px; object-fit: cover; margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.6);">
+      <source src="https://www.dropbox.com/scl/fi/tb6erl7ojcayg468a5o35/lv_0_20260725191237.mp4?rlkey=4xonbvsf0fixz8zqqpb68u9j8&st=niopmw6y&raw=1" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <button onclick="closeFinale()" class="close-btn">Back to Memory Page</button>
+  </div>
+</div>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
